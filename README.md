@@ -11,7 +11,7 @@ pnpm dev
 
 ## Generate a PDF via URL
 
-Convert any external website to PDF.
+Convert any page to PDF.
 
 [http://localhost:3000/api/generate-pdf-from-url?url=https://en.wikipedia.org/wiki/Hello_World](http://localhost:3000/api/generate-pdf-from-url?url=https://en.wikipedia.org/wiki/Hello_World)
 
