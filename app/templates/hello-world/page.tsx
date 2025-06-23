@@ -1,9 +1,12 @@
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
+type Params = Promise<{ slug: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+export default async function Page(props: {
+  params: Params;
+  searchParams: SearchParams;
 }) {
-  const name = (searchParams.name as string) || "World";
+  const searchParams = await props.searchParams;
+  const name = searchParams.name || "World";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-300 flex items-center print:p-0">

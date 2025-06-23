@@ -136,8 +136,8 @@ export default function Home() {
             React Template - Stateless
           </h2>
           <p className="text-gray-600 mb-6">
-            Simple stateless "Hello World" template using query parameters.
-            Clean, fast, and easy to understand.
+            Simple stateless &ldquo;Hello World&rdquo; template using query
+            parameters. Clean, fast, and easy to understand.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">

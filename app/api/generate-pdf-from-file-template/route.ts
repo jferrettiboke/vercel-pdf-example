@@ -28,6 +28,7 @@ export async function GET(request: Request) {
     try {
       htmlContent = await readFile(templatePath, "utf-8");
     } catch (error) {
+      console.log(error);
       return NextResponse.json(
         { error: `Template '${template}' not found` },
         { status: 404 }
