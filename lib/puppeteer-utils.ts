@@ -6,7 +6,7 @@ const localExecutablePath =
     : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 const remoteExecutablePath =
-  "https://github.com/Sparticuz/chromium/releases/download/v137.0.1/chromium-v137.0.1-pack.tar";
+  "https://github.com/Sparticuz/chromium/releases/download/v137.0.1/chromium-v137.0.1-pack.x64.tar";
 
 const isDev = process.env.NODE_ENV === "development";
 
