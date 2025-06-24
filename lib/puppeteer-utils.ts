@@ -1,9 +1,20 @@
-const localExecutablePath =
-  process.platform === "win32"
-    ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-    : process.platform === "linux"
-    ? "/usr/bin/google-chrome"
-    : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+import chromium from "@sparticuz/chromium-min";
+
+chromium.setHeadlessMode = true;
+
+const localExecutablePath = (() => {
+  console.log("process.platform", process.platform);
+  switch (process.platform) {
+    case "win32":
+      return "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
+    case "linux":
+      return "/usr/bin/google-chrome";
+    case "darwin":
+      return "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+    default:
+      throw new Error(`Unsupported platform: ${process.platform}`);
+  }
+})();
 
 const remoteExecutablePath =
   "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar";
@@ -25,7 +36,10 @@ export async function createBrowserInstance(): Promise<BrowserInstance> {
     executablePath: isDev
       ? localExecutablePath
       : await chromium.executablePath(remoteExecutablePath),
-    headless: chromium.headless,
+    headless:
+      chromium.headless === "chrome-headless-shell"
+        ? "shell"
+        : chromium.headless,
   });
 
   const page = await browser.newPage();
