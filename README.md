@@ -15,9 +15,21 @@ Convert any page to PDF.
 
 [http://localhost:3000/api/generate-pdf-from-url?url=https://en.wikipedia.org/wiki/Hello_World](http://localhost:3000/api/generate-pdf-from-url?url=https://en.wikipedia.org/wiki/Hello_World)
 
+## Generate a PDF via URL with Cloudflare Browser Rendering
+
+Convert any page to PDF using Cloudflare's Browser Rendering API instead of local Puppeteer.
+
+[http://localhost:3000/api/generate-pdf-from-url-with-cf?url=https://en.wikipedia.org/wiki/Hello_World](http://localhost:3000/api/generate-pdf-from-url-with-cf?url=https://en.wikipedia.org/wiki/Hello_World)
+
 ## Generate a PDF via URL using an HTML file template (Plain HTML + CSS)
 
 [http://localhost:3000/api/generate-pdf-from-file-template?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D](http://localhost:3000/api/generate-pdf-from-file-template?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D)
+
+## Generate a PDF via HTML file template with Cloudflare Browser Rendering
+
+Generate PDFs from HTML file templates using Cloudflare's Browser Rendering API instead of local Puppeteer.
+
+[http://localhost:3000/api/generate-pdf-from-file-template-with-cf?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D](http://localhost:3000/api/generate-pdf-from-file-template-with-cf?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D)
 
 ## Generate a PDF via URL using page.tsx (Next.js + React + Tailwind CSS)
 

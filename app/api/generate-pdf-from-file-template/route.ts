@@ -1,4 +1,5 @@
 import { closeBrowser, createBrowserInstance } from "@/lib/puppeteer-utils";
+import { parseTemplateData, renderTemplate } from "@/lib/template";
 import { readFile } from "fs/promises";
 import { NextResponse } from "next/server";
 import { join } from "path";
@@ -21,7 +22,11 @@ export async function GET(request: Request) {
     }
 
     // Construct template path
-    const templatePath = join(process.cwd(), `${template}.html`);
+    const templatePath = join(
+      process.cwd(),
+      "app/templates",
+      `${template}.html`
+    );
 
     // Read HTML template from file system
     let htmlContent: string;
@@ -37,25 +42,10 @@ export async function GET(request: Request) {
 
     // Get optional data parameter for template interpolation
     const dataParam = searchParams.get("data");
-    let templateData = {};
+    const templateData = parseTemplateData(dataParam);
 
-    if (dataParam) {
-      try {
-        templateData = JSON.parse(decodeURIComponent(dataParam));
-      } catch {
-        return NextResponse.json(
-          { error: "Invalid JSON data parameter" },
-          { status: 400 }
-        );
-      }
-    }
-
-    // Simple template interpolation (replace {{key}} with values)
-    let processedHtml = htmlContent;
-    for (const [key, value] of Object.entries(templateData)) {
-      const regex = new RegExp(`{{${key}}}`, "g");
-      processedHtml = processedHtml.replace(regex, String(value));
-    }
+    // Use template utility for interpolation
+    const processedHtml = renderTemplate(htmlContent, templateData);
 
     const { browser: browserInstance, page } = await createBrowserInstance();
     browser = browserInstance;
