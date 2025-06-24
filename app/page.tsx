@@ -29,7 +29,8 @@ export default function Page() {
               Generate PDF via URL with Cloudflare
             </h2>
             <p className="text-gray-600 mb-4">
-              Convert any page to PDF using Cloudflare's Browser Rendering API.
+              Convert any page to PDF using Cloudflare&apos;s Browser Rendering
+              API.
             </p>
             <a
               href="/api/generate-pdf-from-url-with-cf?url=https://en.wikipedia.org/wiki/Hello_World"
@@ -65,8 +66,8 @@ export default function Page() {
               Generate PDF via HTML Template with Cloudflare
             </h2>
             <p className="text-gray-600 mb-4">
-              Generate PDF from HTML file template using Cloudflare's Browser
-              Rendering API.
+              Generate PDF from HTML file template using Cloudflare&apos;s
+              Browser Rendering API.
             </p>
             <a
               href="/api/generate-pdf-from-file-template-with-cf?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D"
