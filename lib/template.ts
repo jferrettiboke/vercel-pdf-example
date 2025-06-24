@@ -28,8 +28,6 @@ export function renderTemplate(html: string, data: TemplateData = {}): string {
  * @returns Parsed data object or empty object if parsing fails
  */
 export function parseTemplateData(dataParam: string | null): TemplateData {
-  console.log("--------------------------------");
-  console.log("dataParam", dataParam);
   if (!dataParam) return {};
 
   try {
