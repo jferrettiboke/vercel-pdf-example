@@ -17,23 +17,21 @@ Convert any page to PDF.
 
 ## Generate a PDF via URL with Cloudflare Browser Rendering
 
-Convert any page to PDF using Cloudflare's Browser Rendering API instead of local Puppeteer.
-
 [http://localhost:3000/api/generate-pdf-from-url-with-cf?url=https://en.wikipedia.org/wiki/Hello_World](http://localhost:3000/api/generate-pdf-from-url-with-cf?url=https://en.wikipedia.org/wiki/Hello_World)
 
-## Generate a PDF via URL using an HTML file template (Plain HTML + CSS)
+## Generate a PDF using an HTML file template (Plain HTML + CSS)
 
 [http://localhost:3000/api/generate-pdf-from-file-template?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D](http://localhost:3000/api/generate-pdf-from-file-template?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D)
 
-## Generate a PDF via HTML file template with Cloudflare Browser Rendering
-
-Generate PDFs from HTML file templates using Cloudflare's Browser Rendering API instead of local Puppeteer.
+## Generate a PDF using an HTML file template with Cloudflare Browser Rendering
 
 [http://localhost:3000/api/generate-pdf-from-file-template-with-cf?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D](http://localhost:3000/api/generate-pdf-from-file-template-with-cf?template=hello-world&data=%7B%22name%22%3A%22John%20Doe%22%7D)
 
 ## Generate a PDF via URL using page.tsx (Next.js + React + Tailwind CSS)
 
 Using Next.js pages with React and Tailwind CSS offers dynamic templating with component reuse, type safety, and modern styling - perfect for complex, maintainable PDF templates.
+
+This solution also allows you to preview the templates directly without generating PDFs and keep using your preferred libraries (shadcn/ui, etc).
 
 - [Hello John](http://localhost:3000/api/generate-pdf-from-url?url=http://localhost:3000/templates/hello-world?name=John)
 - [Hello Alice](http://localhost:3000/api/generate-pdf-from-url?url=http://localhost:3000/templates/hello-world?name=Alice)
