@@ -1,8 +1,6 @@
 import { generatePdfFromHtml } from "@/lib/pdf";
-import { renderTemplate, parseTemplateData } from "@/lib/template";
-import { readFile } from "node:fs/promises";
-import { NextRequest } from "next/server";
-import { join } from "node:path";
+import { processTemplate } from "@/lib/template";
+import { NextRequest, NextResponse } from "next/server";
 
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
@@ -17,18 +15,16 @@ export async function GET(req: NextRequest) {
       return new Response("Template parameter is required", { status: 400 });
     }
 
-    const templatePath = join(
-      process.cwd(),
-      "app/templates",
-      `${template}.html`
-    );
-    const html = await readFile(templatePath, "utf8");
-
-    // Parse template data from query parameter
-    const templateData = parseTemplateData(data);
-
-    // Render template with variables
-    const processedHtml = renderTemplate(html, templateData);
+    let processedHtml: string;
+    try {
+      processedHtml = await processTemplate(template, data);
+    } catch (error) {
+      console.log(error);
+      return NextResponse.json(
+        { error: `Template '${template}' not found` },
+        { status: 404 }
+      );
+    }
 
     const pdfBuffer = await generatePdfFromHtml(processedHtml);
 

@@ -1,19 +1,16 @@
 import { closeBrowser, createBrowserInstance } from "@/lib/puppeteer-utils";
-import { parseTemplateData, renderTemplate } from "@/lib/template";
-import { readFile } from "fs/promises";
-import { NextResponse } from "next/server";
-import { join } from "path";
+import { processTemplate } from "@/lib/template";
+import { NextRequest, NextResponse } from "next/server";
 
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
-export async function GET(request: Request) {
+export async function GET(req: NextRequest) {
   let browser = null;
   try {
-    const { searchParams } = new URL(request.url);
-    const template = searchParams.get("template");
+    const template = req.nextUrl.searchParams.get("template");
+    const data = req.nextUrl.searchParams.get("data");
 
-    // Require template parameter
     if (!template) {
       return NextResponse.json(
         { error: "Template parameter is required" },
@@ -21,17 +18,9 @@ export async function GET(request: Request) {
       );
     }
 
-    // Construct template path
-    const templatePath = join(
-      process.cwd(),
-      "app/templates",
-      `${template}.html`
-    );
-
-    // Read HTML template from file system
-    let htmlContent: string;
+    let processedHtml: string;
     try {
-      htmlContent = await readFile(templatePath, "utf-8");
+      processedHtml = await processTemplate(template, data);
     } catch (error) {
       console.log(error);
       return NextResponse.json(
@@ -39,13 +28,6 @@ export async function GET(request: Request) {
         { status: 404 }
       );
     }
-
-    // Get optional data parameter for template interpolation
-    const dataParam = searchParams.get("data");
-    const templateData = parseTemplateData(dataParam);
-
-    // Use template utility for interpolation
-    const processedHtml = renderTemplate(htmlContent, templateData);
 
     const { browser: browserInstance, page } = await createBrowserInstance();
     browser = browserInstance;

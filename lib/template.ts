@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 interface TemplateData {
   [key: string]: any;
 }
@@ -25,6 +28,8 @@ export function renderTemplate(html: string, data: TemplateData = {}): string {
  * @returns Parsed data object or empty object if parsing fails
  */
 export function parseTemplateData(dataParam: string | null): TemplateData {
+  console.log("--------------------------------");
+  console.log("dataParam", dataParam);
   if (!dataParam) return {};
 
   try {
@@ -33,6 +38,22 @@ export function parseTemplateData(dataParam: string | null): TemplateData {
     console.warn("Failed to parse template data:", error);
     return {};
   }
+}
+
+/**
+ * Complete template processing: reads template file, parses data, and renders HTML
+ * @param templateName - Name of the template file (without .html extension)
+ * @param dataParam - URL parameter string containing JSON data
+ * @returns Processed HTML string ready for PDF generation
+ */
+export async function processTemplate(
+  templateName: string,
+  dataParam: string | null = null
+): Promise<string> {
+  const templatePath = join(process.cwd(), "templates", `${templateName}.html`);
+  const html = await readFile(templatePath, "utf8");
+  const templateData = parseTemplateData(dataParam);
+  return renderTemplate(html, templateData);
 }
 
 /**
